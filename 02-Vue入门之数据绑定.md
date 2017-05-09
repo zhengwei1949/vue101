@@ -34,14 +34,14 @@ Vue框架很核心的功能就是双向的数据绑定。
     el: '#app',               // el属性：把当前Vue对象挂载到 div标签上，#app是id选择器
     data: {                   // data: 是Vue对象中绑定的数据
       msg: 'Hi',              // message 自定义的数据
-      name: 'flydragon'       // name自定义的属性，vue可以多个自定义属性，属性类型也可是复杂类型
+      name: 'ericzheng'       // name自定义的属性，vue可以多个自定义属性，属性类型也可是复杂类型
     }
   });
 </script>
 ```
 结果：
 ```
-Hi - flydragon
+Hi - ericzheng
 ```
 
 当然Vue还可以支持表达中的任何计算、函数处理等。参考下面的综合点的案例。
@@ -68,7 +68,7 @@ Hi - flydragon
     el: '#app',               // el属性：把当前Vue对象挂载到 div标签上，#app是id选择器
     data: {                   // data: 是Vue对象中绑定的数据
       msg: 'Hi',              // message 自定义的数据
-      name: 'flydragon',
+      name: 'ericzheng',
       isOk: true,
       age: 18
     }
