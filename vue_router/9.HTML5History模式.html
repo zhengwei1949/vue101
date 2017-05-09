@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Hello App!</h1>
+        <p>
+            <!--使用 router-link组件来导航-->
+            <!--通过传入 `to` 属性指定链接-->
+            <!--<router-link>默认会渲染成一个a标签-->
+            <router-link :to="{name:'foo'}">Go to Foo</router-link>
+            <router-link :to="{name:'bar'}">Go to Bar</router-link>
+            <hr>
+            <router-link to="/user/1">/user/1</router-link>
+            <router-link to="/user/2">/user/2</router-link>
+            <router-link to="/user/3">/user/3</router-link>
+        </p>
+        <!--路由匹配到的组件将渲染在这里-->
+         <router-view></router-view>
+    </div>
+   
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        const Foo = {template:'<div>foo</div>'};
+        const Bar = {template:'<div>bar</div>'}
+        const User = {
+            template:'<div>User {{$route.params.id}}</div>'
+        }
+
+        const routes = [
+            {path:'/foo',name:'foo',component:Foo},
+            {path:'/bar',name:'bar',component:Bar},
+            //当使用路由参数时，例如从/user/foo导航到user/bar,原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用
+            {path:'/user/:id',component:User},
+            {path:'/notfound',redirect: '/foo'}
+        ]
+
+        const router = new VueRouter({
+            mode:'history',
+            routes
+        })
+
+        const app = new Vue({
+            router
+        }).$mount('#app');
+    </script>
+</body>
+</html>

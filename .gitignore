@@ -1,0 +1,16 @@
+# Ignore Mac OS desktop services store
+.DS_Store
+._*
+
+# Ignore Windows desktop setting file
+desktop.ini
+
+*.log
+
+.idea
+
+# Ignore vscode debug json
+.vscode
+src/.vscode
+node_modules
+node_modules/*

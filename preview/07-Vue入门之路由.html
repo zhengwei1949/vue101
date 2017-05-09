@@ -1,0 +1,527 @@
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>itcastmark:07-Vue入门之路由</title>
+	<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"
+	/>
+	<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css" />
+	<style>
+		pre {
+			counter-reset: line-numbering;
+			border: solid 1px #d9d9d9;
+			border-radius: 0;
+			background: #fff;
+			padding: 0;
+			line-height: 23px;
+			margin-bottom: 30px;
+			white-space: pre;
+			overflow-x: auto;
+			word-break: inherit;
+			word-wrap: inherit;
+		}
+		
+		pre a::before {
+			content: counter(line-numbering);
+			counter-increment: line-numbering;
+			padding-right: 1em;
+			/* space after numbers */
+			width: 25px;
+			text-align: right;
+			opacity: 0.7;
+			display: inline-block;
+			color: #aaa;
+			background: #eee;
+			margin-right: 16px;
+			padding: 2px 10px;
+			font-size: 13px;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		
+		pre a:first-of-type::before {
+			padding-top: 10px;
+		}
+		
+		pre a:last-of-type::before {
+			padding-bottom: 10px;
+		}
+		
+		pre a:only-of-type::before {
+			padding: 10px;
+		}
+		
+		.highlight {
+			background-color: #ffffcc
+		}
+		/* RIGHT */
+		
+		.top-menu {
+			border-bottom: 1px solid #ccc;
+			overflow: hidden;
+			height: 49px;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 2147483647;
+			background-color: #909090;
+			color: #f6f6f6;
+		}
+		
+		.top-menu ul,
+		.top-menu li {
+			list-style: none;
+		}
+		
+		.top-menu a {
+			font-size: 16px;
+			display: block;
+			float: left;
+			width: 100px;
+			height: 49px;
+			line-height: 49px;
+			border-radius: 3px;
+			text-align: center;
+			cursor: pointer;
+			color: #f6f6f6;
+		}
+		
+		.top-menu-title {
+			float: left;
+			margin-left: 100px;
+			height: 40px;
+			overflow: hidden;
+		}
+		body {
+			padding-top: 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="top-menu">
+		<ul>
+			<li>
+				<a href="http://www.cnblogs.com/fly_dragon/">老马博客</a>
+				<a href="http://www.aicoder.com">老马独立博客</a>
+			</li>
+		</ul>
+		<div class="top-menu-title">
+			<h3>生命在于分享，技术源于生命</h3>
+			<p>学无止境，谦虚慎行，三人行必有我师.</p>
+		</div>
+	</div>
+
+	<div>
+		<div style='width:25%;'>
+			<ul id="tree" class="ztree" style='width:100%'>
+
+			</ul>
+		</div>
+		<div id='readme' style='width:70%;margin-left:20%;'>
+			<article class='markdown-body'>
+				<h1 id="vue-">Vue路由详解</h1>
+<blockquote>
+<p>对于前端来说，其实浏览器配合超级连接就很好的实现了路由功能。但是对于单页面应用来说，浏览器和超级连接的跳转方式已经不能适用，
+所以各大框架纷纷给出了单页面应用的解决路由跳转的方案。 </p>
+<p>Vue框架的兼容性非常好，可以很好的跟其他第三方的路由框架进行结合。当然官方也给出了路由的方案： <code>vue-router</code>;
+建议还是用官方的最好，使用量也是最大，相对来说Vue框架的升级路由组件升级也会及时跟上，所以为了以后的维护和升级方便还是使用Vue自家的东西最好。</p>
+</blockquote>
+<h2 id="vue-router-">Vue-router的版本对应</h2>
+<blockquote>
+<p>注意: vue-router@2.x 只适用于 Vue 2.x 版本。
+vue-router@1.x 对应于Vue1.x版本。</p>
+</blockquote>
+<ul>
+<li>的Github地址：<a href="https://github.com/vuejs/vue-router">vue-router</a>   </li>
+<li><a href="https://router.vuejs.org/zh-cn/">文档地址</a></li>
+</ul>
+<h2 id="vue-router-">vue-router的安装使用</h2>
+<ul>
+<li>CDN连接方式</li>
+</ul>
+<p><code>https://unpkg.com/vue-router/dist/vue-router.js</code></p>
+<ul>
+<li>npm 安装</li>
+</ul>
+<pre><code class="lang-shell">npm install vue-router
+</code></pre>
+<h2 id="vue-router-demo">vue-router 入门demo</h2>
+<p>vue-router开发的步骤：</p>
+<ul>
+<li>第一步： 引入vue和vue-router包。<blockquote>
+<p>可以使用cdn的方式或者npm的方式。如果配合npm和webpack的话可以直接作为一个模块导入即可。但是作为初学入门的话建议还是
+直接使用cdn包的形式，先学会怎么用路由。</p>
+</blockquote>
+</li>
+</ul>
+<pre><code class="lang-html">&lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ul>
+<li>第二步： 定义路由跳转的组件<pre><code class="lang-js">// 1. 定义（路由）组件。
+const Foo = { template: &#39;&lt;div&gt;foo&lt;/div&gt;&#39; }
+const Bar = { template: &#39;&lt;div&gt;bar&lt;/div&gt;&#39; }
+</code></pre>
+</li>
+<li>第三步： 定义路由规则对象</li>
+</ul>
+<pre><code class="lang-js">// 每个路由path应该映射一个组件。 其中&quot;component&quot; 可以是
+// 通过 Vue.extend() 创建的组件构造器，
+// 或者，只是一个组件配置对象。
+const routes = [
+  { path: &#39;/foo&#39;, component: Foo },
+  { path: &#39;/bar&#39;, component: Bar }
+]
+
+// 创建路由对象
+const router = new VueRouter({
+  routes // （缩写）相当于 routes: routes，es6的新语法
+})
+</code></pre>
+<ul>
+<li>第四步： 创建Vue对象，并加重上面创建的路由对象</li>
+</ul>
+<pre><code class="lang-js">// 记得要通过 router 配置参数注入路由，
+// 从而让整个应用都有路由功能
+const app = new Vue({
+  router
+}).$mount(&#39;#app&#39;)
+</code></pre>
+<ul>
+<li>第五步： 在模板中编写路由跳转链接</li>
+</ul>
+<pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+  &lt;h1&gt;Hello App!&lt;/h1&gt;
+  &lt;p&gt;
+    &lt;!-- 使用 router-link 组件来导航. --&gt;
+    &lt;!-- 通过传入 `to` 属性指定链接. --&gt;
+    &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;
+    &lt;router-link to=&quot;/foo&quot;&gt;Go to Foo&lt;/router-link&gt;
+    &lt;router-link to=&quot;/bar&quot;&gt;Go to Bar&lt;/router-link&gt;
+  &lt;/p&gt;
+  &lt;!-- 路由出口 --&gt;
+  &lt;!-- 路由匹配到的组件将渲染在这里 --&gt;
+  &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+</code></pre>
+<p>最终的代码：</p>
+<pre><code class="lang-html">&lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
+
+&lt;div id=&quot;app&quot;&gt;
+  &lt;h1&gt;Hello App!&lt;/h1&gt;
+  &lt;p&gt;
+    &lt;!-- 使用 router-link 组件来导航. --&gt;
+    &lt;!-- 通过传入 `to` 属性指定链接. --&gt;
+    &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;
+    &lt;router-link to=&quot;/foo&quot;&gt;Go to Foo&lt;/router-link&gt;
+    &lt;router-link to=&quot;/bar&quot;&gt;Go to Bar&lt;/router-link&gt;
+  &lt;/p&gt;
+  &lt;!-- 路由出口 --&gt;
+  &lt;!-- 路由匹配到的组件将渲染在这里 --&gt;
+  &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+&lt;script&gt;
+// 1. 定义（路由）组件。
+// 可以从其他文件 import 进来
+const Foo = { template: &#39;&lt;div&gt;foo&lt;/div&gt;&#39; }
+const Bar = { template: &#39;&lt;div&gt;bar&lt;/div&gt;&#39; }
+
+// 2. 定义路由
+const routes = [
+  { path: &#39;/foo&#39;, component: Foo },
+  { path: &#39;/bar&#39;, component: Bar }
+]
+
+// 3. 创建 router 实例，然后传 `routes` 配置
+// 你还可以传别的配置参数, 不过先这么简单着吧。
+const router = new VueRouter({
+  routes // （缩写）相当于 routes: routes
+})
+
+// 4. 创建和挂载根实例。
+// 记得要通过 router 配置参数注入路由，
+// 从而让整个应用都有路由功能
+const app = new Vue({
+  router
+}).$mount(&#39;#app&#39;)
+&lt;/script&gt;
+</code></pre>
+<h2 id="-vue-router-">使用vue-router的综合实例</h2>
+<p>下面是一个综合的例子, 页面上有几个导航的按钮，然后通过点击不同的按钮，可以在当前页面切换不同的组件。</p>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt; 
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Vue入门之extend全局方法&lt;/title&gt;
+  &lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
+  &lt;style&gt;
+  ul, li { list-style: none; }
+  ul { overflow: hidden; }
+  li { float: left; width: 100px; }
+  h2 { background-color: #903;}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;top-bar&gt; &lt;/top-bar&gt;
+    &lt;hr&gt;
+      &lt;p&gt;email to: {{ email }}&lt;/p&gt; 
+    &lt;hr&gt;
+    &lt;router-view class=&quot;view one&quot;&gt;&lt;/router-view&gt;
+    &lt;footer-bar&gt;&lt;/footer-bar&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    var topbarTemp = `
+      &lt;nav&gt;
+        &lt;ul&gt;
+          &lt;li v-for=&quot;item in NavList&quot;&gt;
+            &lt;router-link :to=&quot;item.url&quot;&gt;{{ item.name }}&lt;/router-link&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;        
+    `;
+    // 定义组件：topbar
+    Vue.component(&#39;top-bar&#39;, {          
+      template: topbarTemp,
+      data: function () {
+        return {
+          NavList: [
+            { name: &#39;首页&#39;, url: &#39;/home&#39;},
+            { name: &#39;产品&#39;, url: &#39;/product&#39;},
+            { name: &#39;服务&#39;, url: &#39;/service&#39;},
+            { name: &#39;关于&#39;, url: &#39;/about&#39;}
+          ]
+        }
+      }
+    });             
+
+    Vue.component(&#39;footer-bar&#39;, {  // 定义组件 footerbar
+      template: `
+        &lt;footer&gt;
+          &lt;hr/&gt;
+          &lt;p&gt;测试测试&lt;p&gt;
+        &lt;/footer&gt;
+      `
+    });
+
+    // 创建home模块
+    var home = {
+      template: `&lt;div&gt; &lt;h2&gt;{{ msg }}&lt;h2&gt;&lt;/div&gt;`,
+      data: function () {
+        return { msg: &#39;this is home view&#39; }
+      }
+    };
+
+    // 创建product 模块
+    var product = {
+      template: `&lt;div&gt; {{ msg }}&lt;/div&gt;`,
+      data: function () {
+        return { msg: &#39;this is product view&#39; }
+      }
+    }
+
+    // 定义路由对象
+    var router = new VueRouter({
+      routes: [
+        { path: &#39;/home&#39;, component: home },
+        { path: &#39;/product&#39;, component: product }
+      ]
+    });
+
+    // 初始化一个Vue实例
+    var app = new Vue({         
+      el: &#39;#app&#39;,               
+      data: {                   
+       email: &#39;foobar@qq.com&#39;
+      },
+      router: router
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="-">路由参数获取</h2>
+<p>定义路由路径的时候，可以指定参数。参数需要通过路径进行标识：<code>/user/:id</code>就是定义了一个规则，/user开头，然后后面的就是id参数的值。
+比如： </p>
+<pre><code>路由规则：  /user/:id
+/user/9   =&gt;  id = 9
+/user/8   =&gt;  id = 8
+/user/1   =&gt;  id = 1
+</code></pre><p>然后在跳转后的vue中可以通过<code>this.$route.params.参数名</code>获取对应的参数。
+比如代码：</p>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Vue入门之extend全局方法&lt;/title&gt;
+  &lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;nav&gt;
+      &lt;router-link to=&quot;/user/9&quot;&gt;用户&lt;/router-link&gt;
+      &lt;router-link to=&quot;/stu/xiaoming&quot;&gt;学生&lt;/router-link&gt;
+      &lt;hr&gt;
+    &lt;/nav&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    var user = {
+      template: `
+        &lt;div&gt;user id is : {{ $route.params.id }}&lt;/div&gt;
+      `
+    };
+
+    var stu = {
+      template: `
+        &lt;div&gt;
+          &lt;h2&gt;{{ getName }}&lt;/h2&gt;
+        &lt;/div&gt;
+      `,
+      computed: {
+        getName: function () {
+          return this.$route.params.name;
+        }
+      }
+    };
+    var router = new VueRouter({
+      routes: [
+        { path: &#39;/user/:id&#39;, component: user },
+        { path: &#39;/stu/:name&#39;, component: stu }
+      ]
+    });
+    var app = new Vue({
+      el: &#39;#app&#39;,
+      router: router
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="js-">js控制路由跳转</h2>
+<p>上面我们演示的都是通过router-link进行跳转。 其实我们还可以通过js编程的方式进行路由的跳转。</p>
+<pre><code class="lang-js">// 当前路由的view跳转到 /home
+router.push(&#39;home&#39;)
+
+// 对象,  跳转到/home
+router.push({ path: &#39;home&#39; })
+
+// 命名的路由   
+router.push({ name: &#39;user&#39;, params: { userId: 123 }})
+
+// 带查询参数，变成 /register?plan=private
+router.push({ path: &#39;register&#39;, query: { plan: &#39;private&#39; }})
+</code></pre>
+<h2 id="-">嵌套路由</h2>
+<p>嵌套路由跟普通路由基本没有什么区别。但是可以让vue开发变的非常灵活。
+官网这块写的也非常好，我就直接拷贝了（原谅我吧。）
+实际生活中的应用界面，通常由多层嵌套的组件组合而成。同样地，URL 中各段动态路径也按某种结构对应嵌套的各层组件，例如：</p>
+<pre><code>/user/foo/profile                     /user/foo/posts
++------------------+                  +-----------------+
+| User             |                  | User            |
+| +--------------+ |                  | +-------------+ |
+| | Profile      | |  +------------&gt;  | | Posts       | |
+| |              | |                  | |             | |
+| +--------------+ |                  | +-------------+ |
++------------------+                  +-----------------+
+借助 vue-router，使用嵌套路由配置，就可以很简单地表达这种关系。
+</code></pre><pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+  &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+const User = {
+  template: &#39;&lt;div&gt;User {{ $route.params.id }}&lt;/div&gt;&#39;
+}
+
+const router = new VueRouter({
+  routes: [
+    { path: &#39;/user/:id&#39;, component: User }
+  ]
+})
+这里的 &lt;router-view&gt; 是最顶层的出口，渲染最高级路由匹配到的组件。同样地，一个被渲染组件同样可以包含自己的嵌套 &lt;router-view&gt;。例如，在 User 组件的模板添加一个 &lt;router-view&gt;：
+
+const User = {
+  template: `
+    &lt;div class=&quot;user&quot;&gt;
+      &lt;h2&gt;User {{ $route.params.id }}&lt;/h2&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/div&gt;
+  `
+}
+要在嵌套的出口中渲染组件，需要在 VueRouter 的参数中使用 children 配置：
+
+const router = new VueRouter({
+  routes: [
+    { path: &#39;/user/:id&#39;, component: User,
+      children: [
+        {
+          // 当 /user/:id/profile 匹配成功，
+          // UserProfile 会被渲染在 User 的 &lt;router-view&gt; 中
+          path: &#39;profile&#39;,
+          component: UserProfile
+        },
+        {
+          // 当 /user/:id/posts 匹配成功
+          // UserPosts 会被渲染在 User 的 &lt;router-view&gt; 中
+          path: &#39;posts&#39;,
+          component: UserPosts
+        }
+      ]
+    }
+  ]
+})
+</code></pre>
+<p>要注意，以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。
+你会发现，children 配置就是像 routes 配置一样的路由配置数组，所以呢，你可以嵌套多层路由。</p>
+<p>此时，基于上面的配置，当你访问 /user/foo 时，User 的出口是不会渲染任何东西，这是因为没有匹配到合适的子路由。如果你想要渲染点什么，可以提供一个 空的 子路由：</p>
+<pre><code class="lang-js">const router = new VueRouter({
+  routes: [
+    {
+      path: &#39;/user/:id&#39;, component: User,
+      children: [
+        // 当 /user/:id 匹配成功，
+        // UserHome 会被渲染在 User 的 &lt;router-view&gt; 中
+        { path: &#39;&#39;, component: UserHome },
+
+        // ...其他子路由
+      ]
+    }
+  ]
+})
+</code></pre>
+<h2 id="-">总结</h2>
+<p>其实作为入门的话，暂时先掌握这些知识，后续 </p>
+
+			</article>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript">
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
