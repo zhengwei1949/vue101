@@ -2,6 +2,11 @@
 
 [vue旧版教程](https://zhengwei1949.github.io/vue%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B.html)
 
+[看图猜成语案例](https://github.com/zhengwei1949/idiom)
+
+[音乐项目](https://github.com/zhengwei1949/vue-music)
+
+
 ## Vue简介
 `Vue`是一个前端的双向绑定类的框架，发音[读音 /vjuː/, 类似于 view]。新的Vue版本参考了React的部分设计，当然也有自己独特的地方，比如Vue的单文件组件开发方式都很有创新，另外Vue自身的一些绑定的语法、用法等都非常精炼，很容易上手，而且第三方的插件都非常丰富，社区非常活跃，最新的文档都有中文版本。而且Vue配合官方的和第三方的库可以实现单文件的组件化开发、SPA等现代化前端开发。  
 详情请参考[Vue官网](https://cn.vuejs.org/)
