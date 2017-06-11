@@ -76,6 +76,16 @@ Hello Vue!
 
 ----
 
+# 一切皆是组件
+```
+var Message = Vue.extend({
+  props:['content'],
+  template:'<h1>{{content}}</h1>'
+})
+Vue.component('message',Message);
+var vm = new Vue({el:'#app'})
+```
+
 # Vue入门之数据绑定
 
 ## 什么是双向绑定？
